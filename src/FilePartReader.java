@@ -44,7 +44,7 @@ public class FilePartReader {
         String result = "";
 
         for (int i = fromLine - 1; i < toLine; i++) {
-            result += getRows[i];
+            result += getRows[i] + " ";
         }
 
         return result;
