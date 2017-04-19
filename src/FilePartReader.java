@@ -1,3 +1,8 @@
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class FilePartReader {
 
@@ -18,12 +23,31 @@ public class FilePartReader {
     }
 
     private String read(){
-        return "";
+        String result = "";
+        Charset charset = Charset.forName("ISO-8859-1");
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(path), charset);
+
+            for (String line : lines) {
+                result += line + "\n";
+            }
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return result;
     }
 
 
     public String readLines(){
-        return "";
+        String lines = read();
+        String[] getRows = lines.split("\n");
+        String result = "";
+
+        for (int i = fromLine - 1; i < toLine; i++) {
+            result += getRows[i];
+        }
+
+        return result;
     }
 
 }
