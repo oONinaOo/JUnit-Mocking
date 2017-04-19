@@ -3,7 +3,7 @@
  */
 public class test {
     public static void main (String args []){
-        FilePartReader reader = new FilePartReader("src/text.txt", 2,3);
+        FilePartReader reader = new FilePartReader("src/text.txt", 1,3);
 
         reader.readLines();
         System.out.println(reader.readLines());
