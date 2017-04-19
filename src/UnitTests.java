@@ -2,9 +2,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.io.IOException;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 public class UnitTests {
     @Rule
@@ -100,6 +102,59 @@ public class UnitTests {
         }
 
     }
+    @Test
+    public void testWordsByAbc() throws MyExceptions{
+        try {
+            Mocking getMocked = new Mocking("valami", 1, 3);
+            FileWordAnalyzer fwa = new FileWordAnalyzer(getMocked);
+            ArrayList<String> result = fwa.wordsByABC();
+
+            fwa = mock(FileWordAnalyzer.class);
+            when(fwa.wordsByABC()).thenReturn(result);
+
+            String getResultString = "";
+            for(String letter: result){
+                getResultString += letter + ", ";
+            }
+
+            String expected = "elvileg!, fog, most, valamire, változni, ";
+
+            assertEquals(expected, getResultString);
+
+        } catch (Exception e) {
+            throw new MyExceptions("Text does not match or not even the correct order!");
+        }
+    }
+
+    @Test
+    public void testWordsContainingSubString() throws MyExceptions {
+        try{
+
+            Mocking getMocked = new Mocking("valami", 1, 3);
+            FileWordAnalyzer fwa = new FileWordAnalyzer(getMocked);
+            String subs = "valami";
+            ArrayList<String> result = fwa.wordsContainingSubString(subs);
+
+            fwa = mock(FileWordAnalyzer.class);
+            when(fwa.wordsContainingSubString(subs)).thenReturn(result);
+
+            String getResultString = "";
+            for(String letter: result){
+                getResultString += letter + ", ";
+            }
+
+            String expected = "valamire, ";
+
+            assertEquals(expected, getResultString);
+
+        } catch (Exception e) {
+            throw new MyExceptions("Text does not contain this substring");
+        }
+    }
+
+
+
+
 
 
 }
